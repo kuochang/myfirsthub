@@ -1,0 +1,56 @@
+---
+title: "Internal Revenue report anaylysis - Feb 2020"
+author: "Charles Chiang"
+date: "`r Sys.Date()`"
+output:
+  # tufte::tufte_html: default
+  tufte::tufte_handout:
+    # includes:
+        # in_header: preamble.tex  
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: mybb.bib
+link-citations: yes
+tables: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+```{r fig-margin1, fig.margin = TRUE, fig.cap = "Revenue1 vs month: Huawei revenue is picking up...", fig.width=3.5, fig.height=3.5, cache=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
+
+# ```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, message=FALSE, cache=TRUE}
+# ```{r fig-main, fig.cap = "A figure in the main column.", cache=TRUE}
+
+library(ggplot2)
+library(scales)
+dat <- read.csv("~/Desktop/feb1.csv", header=T) 
+dat$time <- as.Date(dat$Month,"%Y/%m/%d") #忽略美元号前后的"\"，论坛回复会自动把美元号解码...
+p <- ggplot(data=dat,aes(x=time))+
+    geom_smooth(aes(y=Huawei, colour="red"))+
+    geom_smooth(aes(y=Oppo,colour="blue"))+
+    geom_smooth(aes(y=Vivo,colour="black"))+
+    scale_color_identity(name="Channel",
+                         breaks = c("red", "blue","black"),
+                         labels = c("Huawei", "Oppo", "Vivo"),
+                         guide = "legend")
+p <- p + labs(x= "Month",
+              y= "Rev(RMB)",
+              title = "Revenue Trend"
+)
+p <- p + theme(
+               legend.position=c(0.95,0.65),
+               legend.justification = c("right","top") 
+)
+p <- p + scale_x_date(date_breaks = "1 month", date_labels = "%y %b")
+p
+```
+
+this is a test.
