@@ -24,7 +24,7 @@ knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
-```{r fig-margin1, fig.margin = TRUE, fig.cap = "Revenue1 vs month: Huawei revenue is picking up...", fig.width=3.5, fig.height=3.5, cache=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
+```{r fig-margin1, fig.margin = TRUE, fig.cap = "ggplot test", fig.width=3.5, fig.height=3.5, cache=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
 
 # ```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, message=FALSE, cache=TRUE}
 # ```{r fig-main, fig.cap = "A figure in the main column.", cache=TRUE}
@@ -39,7 +39,7 @@ p <- ggplot(data=dat,aes(x=time))+
     geom_smooth(aes(y=Vivo,colour="black"))+
     scale_color_identity(name="Channel",
                          breaks = c("red", "blue","black"),
-                         labels = c("Huawei", "Oppo", "Vivo"),
+                         labels = c("c1", "c2", "c3"),
                          guide = "legend")
 p <- p + labs(x= "Month",
               y= "Rev(RMB)",
